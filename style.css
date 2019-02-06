@@ -1,0 +1,81 @@
+body {
+  background-color: rgb(120, 202, 250);
+}
+
+img {
+  max-width: 50%;
+}
+
+#navRoot {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+  background-image: linear-gradient(rgb(137, 137, 255), rgb(120, 202, 250));
+}
+#outerBox {
+  display: flex;
+  justify-content: center;
+}
+
+#container {
+  margin-top: 70px;
+}
+
+#navList {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.postBox {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.subreddit {
+  border: none;
+  border-radius: 3px;
+  padding: 3px;
+  opacity: 0.6;
+}
+
+.post2Img {
+  padding: 10px;
+  width: 200px;
+  height: 200px;
+}
+.post2Vid {
+  padding: 10px;
+  width: 200px;
+  height: 200px;
+}
+.wtfBlock {
+  border: solid;
+  height: 280px;
+  width: 280px;
+  font-size: 14px;
+  flex-grow: 1;
+  background-color: white;
+}
+.awwBlock {
+  border: 5px solid blueviolet;
+  box-shadow: 5px 5px 2px lightgray;
+  height: 280px;
+  width: 280px;
+  font-size: 12px;
+  margin-top: 5px;
+  background-color: white;
+}
+.post1Img {
+  padding: 10px;
+  width: 200px;
+  height: 200px;
+}
+.post1Vid {
+  padding: 10px;
+  width: 200px;
+  height: 200px;
+}
