@@ -45,9 +45,10 @@ const getEL = id_name => {
 
 //const for getting outerbox div
 const getOuterBox = getEL("outerBox");
+const getBackground = getEL("container");
 
 function showAWW() {
-  if (getOuterBox.hasChildNodes() === true) {
+  while (getOuterBox.hasChildNodes() === true) {
     getOuterBox.removeChild(getOuterBox.firstChild);
   }
   //rAWW subreddit data pull and creation
@@ -62,9 +63,17 @@ function showAWW() {
       newTitle.className = "awwBlock";
       const newAuthor = createNewEL("div", x.data.author);
       newAuthor.innerHTML = "Posted by: " + x.data.author;
+      newAuthor.className = "author";
+      const subRedTitle = document.createElement("div");
+      subRedTitle.className = "subtitle";
+      subRedTitle.innerHTML = "r/AWW";
       newTitle.appendChild(newAuthor);
+      newTitle.appendChild(subRedTitle);
       postBox1.appendChild(newTitle);
-      if (x.data.url.charAt(8) === "i") {
+      if (
+        x.data.url.charAt(8) === "i" &&
+        x.data.url.charAt(x.data.url.length - 1) !== "v"
+      ) {
         const postImgSrc = x.data.url;
         const postImgBox = createNewEL("img", "img " + x.data.author);
         postImgBox.src = postImgSrc;
@@ -83,26 +92,37 @@ function showAWW() {
 }
 
 function showWTF() {
-  if (getOuterBox.hasChildNodes() === true) {
+  while (getOuterBox.hasChildNodes() === true) {
     getOuterBox.removeChild(getOuterBox.firstChild);
   }
   const rWTF = request("https://www.reddit.com/r/WTF/.json", function(data) {
     const rWTFdata = data.data.children;
+    console.log(data.data.children);
     const getPostBox2 = createNewEL("div", "postBox2");
     getPostBox2.className = "postBox";
     getOuterBox.appendChild(getPostBox2);
-
     rWTFdata.forEach(x => {
       const newTitle = createNewEL("div", x.data.title);
       newTitle.innerHTML = "Title :" + x.data.title;
       newTitle.className = "wtfBlock";
+      newTitle.style.backgroundImage =
+        "url(https://i.ytimg.com/vi/EFhii04Piww/maxresdefault.jpg";
       const newAuthor = createNewEL("div", x.data.author);
       newAuthor.innerHTML = "Posted by: " + x.data.author;
+      newAuthor.className = "author";
+      const subRedTitle = document.createElement("div");
+      subRedTitle.className = "subtitle";
+      subRedTitle.innerHTML = "r/WTF";
+      newAuthor.appendChild(subRedTitle);
       newTitle.appendChild(newAuthor);
       getPostBox2.appendChild(newTitle);
       const newImg = x.data.url;
-      if (newImg.charAt(8) === "i") {
-        console.log(newImg.charAt(8));
+      if (
+        x.data.thumbnail !== "self" &&
+        newImg.charAt(8) !== "v" &&
+        !newImg.includes("https://i.imgur") &&
+        newImg[newImg.length - 4] === "."
+      ) {
         const postImgBox = createNewEL("img", "img " + x.data.author);
         postImgBox.src = newImg;
         postImgBox.className = "post2Img";
@@ -120,7 +140,7 @@ function showWTF() {
 }
 
 function showTIL() {
-  if (getOuterBox.hasChildNodes() === true) {
+  while (getOuterBox.hasChildNodes() === true) {
     getOuterBox.removeChild(getOuterBox.firstChild);
   }
   const rTIL = request("https://www.reddit.com/r/todayilearned/.json", function(
@@ -129,13 +149,38 @@ function showTIL() {
     const rTILdata = data.data.children;
     const postBox3 = createNewEL("div", "postBox3");
     getOuterBox.appendChild(postBox3);
+    getBackground.style.backgroundImage = "";
     rTILdata.forEach(x => {
-      const newTitle = createNewEL("button", x.data.title);
-      newTitle.className = "drop";
-      newTitle.innerHTML = x.data.title;
-      postBox3.appendChild(newTitle);
+      const newButton = document.createElement("button", x.data.title);
+      newButton.className = "drop";
+      const buttonImg = document.createElement("img");
+      buttonImg.className = "TILimage";
+      buttonImg.src = "./clipart2280630.png";
+      newButton.appendChild(buttonImg);
+      const buttonsData = document.createElement("div");
+      buttonsData.className = "TILdata";
+      buttonsData.innerHTML = x.data.title;
+      newButton.addEventListener("click", showTILdata);
+      newButton.addEventListener("mouseover", fadeIn);
+      newButton.addEventListener("mouseout", fadeOut);
+      newButton.appendChild(buttonsData);
+      postBox3.appendChild(newButton);
     });
   });
+}
+
+function showTILdata() {
+  if (
+    this.childNodes[1].style.display === "none" ||
+    this.childNodes[1].style.display === ""
+  ) {
+    this.childNodes[1].style.display = "block";
+    this.style.backgroundColor = "green";
+    this.style.opacity = 1;
+  } else {
+    this.childNodes[1].style.display = "none";
+    this.style.backgroundColor = "rgb(253, 235, 184)";
+  }
 }
 
 //Making the Navigation Bar.
@@ -169,5 +214,5 @@ function fadeIn() {
   this.style.opacity = 1;
 }
 function fadeOut() {
-  this.style.opacity = 0.6;
+  this.style.opacity = 0.7;
 }

@@ -5,6 +5,29 @@ body {
 img {
   max-width: 50%;
 }
+#firstPage {
+  height: 600px;
+  margin-top: -180px;
+}
+
+#awwBK {
+  opacity: 0.7;
+  position: fixed;
+}
+#logo {
+  width: 50px;
+  opacity: 0.8;
+  float: left;
+  margin-top: -10px;
+  margin-left: 5px;
+}
+#reddittag {
+  float: left;
+  font-size: 30px;
+  font-family: "Courier New";
+  padding-left: 10px;
+  margin-top: -5px;
+}
 
 #navRoot {
   position: fixed;
@@ -12,7 +35,9 @@ img {
   width: 100%;
   overflow: hidden;
   background-image: linear-gradient(rgb(137, 137, 255), rgb(120, 202, 250));
+  z-index: 999;
 }
+
 #outerBox {
   display: flex;
   justify-content: center;
@@ -40,6 +65,7 @@ img {
   border-radius: 3px;
   padding: 3px;
   opacity: 0.6;
+  font-family: "Trebuchet MS";
 }
 
 .post2Img {
@@ -53,21 +79,29 @@ img {
   height: 200px;
 }
 .wtfBlock {
-  border: solid;
+  border: 5px solid;
+  border-color: paleturquoise;
   height: 280px;
   width: 280px;
-  font-size: 14px;
+  font-family: "Trebuchet MS";
+  font-size: 12px;
   flex-grow: 1;
   background-color: white;
+  margin-top: 5px;
+  background-size: 500px;
 }
 .awwBlock {
-  border: 5px solid blueviolet;
-  box-shadow: 5px 5px 2px lightgray;
+  border: 5px solid rgb(208, 159, 253);
   height: 280px;
   width: 280px;
   font-size: 12px;
+  font-family: "Trebuchet MS";
   margin-top: 5px;
   background-color: white;
+}
+
+.author {
+  font-size: 10px;
 }
 .post1Img {
   padding: 10px;
@@ -79,3 +113,32 @@ img {
   width: 200px;
   height: 200px;
 }
+.TILdata {
+  display: none;
+}
+
+.drop {
+  margin: 20px;
+  border-radius: 10px;
+  opacity: 0.7;
+  background-color: rgb(253, 235, 184);
+}
+
+.TILimage {
+  width: 100px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* 
+@media only screen (min-device-width: 375px) and (max-device-width: 667px) and (orientation: portrait) {
+  #postBox3 {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #postBox2 {
+    display: flex;
+    flex-direction: row;
+  }
+} */
