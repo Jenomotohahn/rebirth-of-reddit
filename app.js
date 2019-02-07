@@ -19,6 +19,34 @@ const gifyArrWTF = [
   "https://giphy.com/embed/ujTfbd9cLhZ6iwoKrI"
 ];
 
+const matchingArr = [
+  "cat",
+  "dog",
+  ":)",
+  "watermelon",
+  "llama",
+  "sushi",
+  "rabbit",
+  "cohort27",
+  "BEACH",
+  "devleague",
+  "cat",
+  "rabbit",
+  "car",
+  "car",
+  "sushi",
+  "llama",
+  "devleague",
+  "watermelon",
+  ":)",
+  "HI",
+  "BYE",
+  "BYE",
+  "HI",
+  "BEACH",
+  "cohort27"
+];
+
 //Helper function for requests
 const request = (url, callback) => {
   const xhr = new XMLHttpRequest();
@@ -127,6 +155,9 @@ function showWTF() {
         postImgBox.src = newImg;
         postImgBox.className = "post2Img";
         newTitle.appendChild(postImgBox);
+        const putComments = document.createElement("div", "comments");
+        putComments.innerHTML = "Comments: " + x.data.num_comments;
+        newTitle.appendChild(putComments);
       } else {
         const postVidSrc =
           gifyArrWTF[Math.floor(Math.random() * Math.floor(7))];
@@ -134,6 +165,9 @@ function showWTF() {
         postVid2.src = postVidSrc;
         postVid2.className = "post2Vid";
         newTitle.appendChild(postVid2);
+        const putComments = document.createElement("div", "comments");
+        putComments.innerHTML = "Comments: " + x.data.num_comments;
+        newTitle.appendChild(putComments);
       }
     });
   });
@@ -150,8 +184,9 @@ function showTIL() {
     const postBox3 = createNewEL("div", "postBox3");
     getOuterBox.appendChild(postBox3);
     getBackground.style.backgroundImage = "";
-    rTILdata.forEach(x => {
-      const newButton = document.createElement("button", x.data.title);
+    rTILdata.forEach((x, index) => {
+      const newButton = document.createElement("button");
+      newButton.id = x.data.title;
       newButton.className = "drop";
       const buttonImg = document.createElement("img");
       buttonImg.className = "TILimage";
@@ -160,6 +195,11 @@ function showTIL() {
       const buttonsData = document.createElement("div");
       buttonsData.className = "TILdata";
       buttonsData.innerHTML = x.data.title;
+      const matchData = document.createElement("div");
+      matchData.id = matchingArr[index];
+      matchData.className = "matchData";
+      matchData.innerHTML = matchingArr[index];
+      newButton.appendChild(matchData);
       newButton.addEventListener("click", showTILdata);
       newButton.addEventListener("mouseover", fadeIn);
       newButton.addEventListener("mouseout", fadeOut);
@@ -169,18 +209,37 @@ function showTIL() {
   });
 }
 
+let matchOrNot = [];
+let clickNums = 0;
+
 function showTILdata() {
-  if (
-    this.childNodes[1].style.display === "none" ||
-    this.childNodes[1].style.display === ""
-  ) {
-    this.childNodes[1].style.display = "block";
-    this.style.backgroundColor = "green";
-    this.style.opacity = 1;
-  } else {
-    this.childNodes[1].style.display = "none";
+  this.childNodes[1].style.display = "block";
+  matchOrNot.push(this.childNodes[1].innerHTML);
+  const target = document.getElementById(this.id);
+  setTimeout(function() {
+    alert(target.childNodes[2].innerHTML);
+  }, 500);
+  clickNums++;
+  if (clickNums === 2) {
+    // alert(this.childNodes[2].innerHTML);
+    if (matchOrNot[0] === matchOrNot[1]) {
+      setTimeout(function() {
+        alert("You Found a Match!");
+      }, 2000);
+      // this.style.backgroundColor = "rgb(253, 235, 184)";
+      // document.getElementById(matchOrNot[0]).style.backgroundColor =
+      //   "rgb(253, 235, 184)";
+    }
+    // alert(this.childNodes[2].innerHTML);
     this.style.backgroundColor = "rgb(253, 235, 184)";
+    setTimeout(function() {
+      alert("Sorry :( Try Again!");
+    }, 1000);
+    clickNums = 0;
+    matchOrNot = [];
+    console.log(this);
   }
+  this.style.backgroundColor = "green";
 }
 
 //Making the Navigation Bar.

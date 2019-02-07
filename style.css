@@ -130,6 +130,10 @@ img {
   padding-bottom: 10px;
 }
 
+.matchData {
+  display: none;
+}
+
 /* 
 @media only screen (min-device-width: 375px) and (max-device-width: 667px) and (orientation: portrait) {
   #postBox3 {
